@@ -26,7 +26,7 @@ def get_current_doc_count(es_url, index_name):
    # Return count and epoch timestamp.
    return (int(count), time.time())
 
-def get_previous_doc_count(status_file, current_doc_count):
+def get_previous_doc_count(status_file):
    '''Get document count from file.'''
    if os.path.exists(status_file):
       if os.path.isfile(status_file) and not os.path.islink(status_file):
@@ -134,20 +134,19 @@ def main():
       help='critical threshold')
    args = parser.parse_args()
 
-   current_doc_count = get_current_doc_count(args.es_url,
-                                             args.index_name)
-   previous_doc_count = get_previous_doc_count(args.status_file,
-                                                current_doc_count)
-   write_current_doc_count(args.status_file,
-                           current_doc_count)
+   current_doc_count = get_current_doc_count(args.es_url, args.index_name)
+
+   previous_doc_count = get_previous_doc_count(args.status_file)
+
+   write_current_doc_count(args.status_file, current_doc_count)
 
    # On first run there won't be values to compare.
    if previous_doc_count == '':
       sys.stderr.write('First run? No values from previous run in {} available.\n'.format(args.status_file))
       sys.exit(RC['UNKNOWN'])
       
-   (doc_delta, seconds_delta) = calc_deltas(current_doc_count,
-                                             previous_doc_count)
+   (doc_delta, seconds_delta) = calc_deltas(current_doc_count, previous_doc_count)
+
    check_threshold(doc_delta, 
                      seconds_delta,                  
                      args.threshold_type,
