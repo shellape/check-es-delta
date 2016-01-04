@@ -45,7 +45,7 @@ $> check_es_delta.py -w 100 -c 0
 OK: doc delta 3852 (i:,w:100,c:0,t:min) in 60.78s
 
 # Get the document delta for a certain index:
-$> check_es_delta.py -i logstash-apache-2015.12.07 -w 50 -c 0
-OK: doc delta 4796 (i:logstash-syslog_2015.12.07,w:100,c:0,t:min) in 60.81s
+$> check_es_delta.py -i logstash-apache_2015.12.07 -w 60 -c 0
+OK: doc delta 4796 (i:logstash-apache_2015.12.07,w:60,c:0,t:min) in 60.83s
 
 ```
