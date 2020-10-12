@@ -6,7 +6,6 @@ Get the document count for all or a certain elasticsearch index.
 Calculate the delta to the previous script invocation using a
 status file. The value is compared to the specified thresholds.
 '''
-__author__ = 'vd@ghostshell.de'
 __version__ = '0.1'
 
 import os
